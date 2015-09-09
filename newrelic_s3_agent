@@ -23,10 +23,15 @@ module S3Agent
         credentials: Aws::Credentials.new(access_key_id, secret_access_key),
         region: region)
       s3.list_objects(bucket: bucket_name).each do |page|
+        puts "Checking bucket: #{bucket_name}"
         page.contents.each do |object|
           count += 1
           size += object.size.to_i
           last_modified = [last_modified, object.last_modified].max
+
+          puts "Count: #{count}"
+          puts "Count: #{size}"
+          puts "Count: #{last_modified}"
         end
       end
       report_metric "ObjectCount", "Objects", count
