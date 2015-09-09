@@ -6,7 +6,7 @@ newrelic:
   #
   # Update with your New Relic account license key:
   #
-  license_key: 'YOUR_LICENSE_KEY_HERE'
+  license_key: <%= ENV["NEW_RELIC_KEY"] %>
   #
   # Set to '1' for verbose output, remove for normal output.
   # All output goes to stdout/stderr.
@@ -23,13 +23,15 @@ newrelic:
 # Use this shared block if all your buckets use the same AWS
 #   credentials. Can use other values for each bucket, though.
 s3_creds: &s3_creds
-  access_key_id: 'AWS_ACCESS_KEY'
-  secret_access_key: 'AWS_SECRET_KEY'
+  access_key_id: <%= ENV["AWS_ACCESS_KEY"] %>
+  secret_access_key: <%= ENV["AWS_SECRET_KEY"] %>
 #
 # Agent Configuration:
 #
 agents:
   s3:
-    - bucket_name: my_bucket
+    <% ENV["BUCKETS"].split(",").each do |bucket| %>
+    - bucket_name: <%= bucket %>
       region: us-east-1
       <<: *s3_creds
+    <% end %>
