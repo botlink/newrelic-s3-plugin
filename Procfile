@@ -1,1 +1,1 @@
-monitor: ./newrelic_s3_agent
+cmd: ./newrelic_s3_agent
