@@ -1,0 +1,21 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    aws-sdk-core (2.1.19)
+      jmespath (~> 1.0)
+    jmespath (1.0.2)
+      multi_json (~> 1.0)
+    json (1.8.3)
+    multi_json (1.11.2)
+    newrelic_plugin (1.3.1)
+      json
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aws-sdk-core
+  newrelic_plugin
+
+BUNDLED WITH
+   1.10.6
