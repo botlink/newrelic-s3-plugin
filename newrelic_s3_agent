@@ -12,8 +12,8 @@ module S3Agent
 
     agent_guid "io.adstage.newrelic-s3-plugin"
     agent_version "1.0.1"
-    agent_config_options :region, :bucket_names, :access_key_id, :secret_access_key
-    agent_human_labels("S3") { bucket_names }
+    agent_config_options :region, :bucket_name, :access_key_id, :secret_access_key
+    agent_human_labels("S3") { bucket_name }
 
     def poll_cycle
       count = 0
@@ -22,14 +22,12 @@ module S3Agent
       s3 = Aws::S3::Client.new(
         credentials: Aws::Credentials.new(access_key_id, secret_access_key),
         region: region)
-      bucket_names.split(",").each do |bucket|
-        puts "Checking bucket: #{bucket}"
-        s3.list_objects(bucket: bucket).each do |page|
-          page.contents.each do |object|
-            count += 1
-            size += object.size.to_i
-            last_modified = [last_modified, object.last_modified].max
-          end
+      s3.list_objects(bucket: bucket_name).each do |page|
+        puts "Checking bucket: #{bucket_name}"
+        page.contents.each do |object|
+          count += 1
+          size += object.size.to_i
+          last_modified = [last_modified, object.last_modified].max
         end
       end
       report_metric "ObjectCount", "Objects", count

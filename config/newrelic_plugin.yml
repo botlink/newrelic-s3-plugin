@@ -30,6 +30,8 @@ s3_creds: &s3_creds
 #
 agents:
   s3:
-    - bucket_names: <%= ENV["BUCKETS"] %>
+    <% ENV["BUCKETS"].split(",").each do |bucket| %>
+    - bucket_name: <%= bucket %>
       region: us-east-1
       <<: *s3_creds
+    <% end %> 
