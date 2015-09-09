@@ -28,10 +28,6 @@ module S3Agent
           count += 1
           size += object.size.to_i
           last_modified = [last_modified, object.last_modified].max
-
-          puts "Count: #{count}"
-          puts "Count: #{size}"
-          puts "Count: #{last_modified}"
         end
       end
       report_metric "ObjectCount", "Objects", count
