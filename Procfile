@@ -1,1 +1,1 @@
-cmd: ./newrelic_s3_agent
+web: ./newrelic_s3_agent
